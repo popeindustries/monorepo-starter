@@ -1,0 +1,21 @@
+{
+  "name": "monorepo-starter",
+  "version": "1.0.0",
+  "type": "module",
+  "private": true,
+  "devDependencies": {
+    "@changesets/cli": "^2.22.0"
+  },
+  "engines": {
+    "node": ">=16",
+    "pnpm": ">=7"
+  },
+  "scripts": {
+    "build": "pnpm --recursive run build",
+    "libraries:version": "changeset version && pnpm install --offline --frozen-lockfile",
+    "libraries:publish": "git pull --tags --force && changeset tag && pnpm publish --recursive",
+    "lint": "pnpm --recursive run lint",
+    "test": "pnpm --recursive run test",
+    "preinstall": "npx only-allow pnpm"
+  }
+}

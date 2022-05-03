@@ -1,0 +1,81 @@
+name: Libraries
+
+on:
+  push:
+    paths:
+      - 'libraries/**'
+      - 'package.json'
+      - 'pnpm-lock.yaml'
+      - 'pnpm-workspace.yaml'
+
+env:
+  CI: true
+  PNPM_CACHE_FOLDER: .pnpm-store
+  HUSKY: 0 # Bypass husky commit hook for CI
+
+jobs:
+  lint-and-test:
+    timeout-minutes: 15
+    name: 'lint and test, or publish'
+    # Must be self-hosted to access writeable NPM_TOKEN for publish
+    runs-on: [self-hosted, linux, x64]
+    steps:
+      - name: 'Checkout'
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 2
+
+      - name: 'Cache pnpm modules'
+        uses: actions/cache@v2
+        with:
+          path: ${{ env.PNPM_CACHE_FOLDER }}
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-
+
+      - name: 'Install pnpm 6'
+        uses: pnpm/action-setup@v2.0.1
+        with:
+          version: 6.x
+
+      - name: 'Install Node.js 16'
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+          cache: 'pnpm'
+
+      - name: 'Set up npm credentials'
+        run: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: 'Configure pnpm'
+        run: pnpm config set store-dir $PNPM_CACHE_FOLDER
+
+      - name: 'Install dependencies'
+        run: pnpm --frozen-lockfile install
+
+      - name: 'Build'
+        run: pnpm run build --filter ./libraries/*
+
+      # Lint and test (if not on main)
+      - name: 'Lint and test'
+        if: ${{ !endsWith(github.ref, '/main') }}
+        run: |
+          pnpm run lint --filter ./libraries/* \
+            && pnpm run test --filter ./libraries/*
+
+      # Version and Publish (if main)
+      - name: 'Version and Publish'
+        if: ${{ endsWith(github.ref, '/main') }}
+        uses: changesets/action@v1
+        with:
+          # Creates/updates release PR if pending changesets
+          version: pnpm libraries:version
+          commit: '/libraries/* release'
+          title: '`/libraries/*` release'
+          # Publish to npm if release PR merged to main
+          publish: pnpm libraries:publish
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

@@ -1,0 +1,9 @@
+node_modules/
+.DS_store
+.pnpm-debug.log
+# Prevent npm/yarn lock files from being commited
+yarn.lock
+package-lock.json
+# The package store used during GitHub workflows.
+# Will be commited by Changeset if not ignored
+.pnpm-store/

@@ -1,0 +1,6 @@
+{
+  "options": {
+    "something": true,
+    "somethingElse": false
+  }
+}

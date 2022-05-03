@@ -1,0 +1,13 @@
+{
+  "name": "some-app",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "main": "index.js",
+  "dependencies": {
+    "some-lib": "workspace:*"
+  },
+  "devDependencies": {
+    "some-config": "workspace:*"
+  }
+}
