@@ -17,7 +17,7 @@ $ npm install --global pnpm
 
 As always, begin by adding a `package.json` to your project root (run `pnpm init` if you'd like to do this interactively).
 
-Unlike `npm`, defining a [`package.json#engines`]() field will let you enforce supported runtime versions:
+Unlike `npm`, defining a [`package.json#engines`](package.json#L9) field will let you enforce supported runtime versions:
 
 ```json
 {
