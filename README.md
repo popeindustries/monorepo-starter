@@ -105,4 +105,4 @@ $ pnpm add --save-dev @changesets/cli && pnpm changeset init
 
 ## Deploying
 
-Leverage [Docker]() multi-stage builds and pnpm's central store to speed up builds.
+Leverage [Docker](apps/some-app/Dockerfile) multi-stage builds and pnpm's central store to speed up builds.
