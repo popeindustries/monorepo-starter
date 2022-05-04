@@ -28,7 +28,7 @@ Unlike `npm`, defining a [`package.json#engines`](package.json#L9) field will le
 }
 ```
 
-Combined with a [`preinstall`]() script, and adding npm/yarn lock files to [`.gitignore`](), you can enforce `pnpm` use over other alternatives:
+Combined with a [`preinstall`](package.json#L19) script, and adding npm/yarn lock files to [`.gitignore`](.gitignore#L4), you can enforce `pnpm` use over other alternatives:
 
 ```json
 {
@@ -40,7 +40,7 @@ Combined with a [`preinstall`]() script, and adding npm/yarn lock files to [`.gi
 
 ## Configuration
 
-As with `npm`, general configuration is read from an [`.npmrc`]() file. For multi-package configuration specifically, configuration is read from a [`pnpm-workspace.yaml`]() file:
+As with `npm`, general configuration is read from an [`.npmrc`](.npmrc) file. For multi-package configuration specifically, configuration is read from a [`pnpm-workspace.yaml`](pnpm-workspace.yaml) file:
 
 ```yaml
 packages:
@@ -99,7 +99,7 @@ $ pnpm add --save-dev @changesets/cli && pnpm changeset init
 2. Run `pnpm changeset` to generate a changeset description file
 3. Check changeset file into PR branch
 4. (optional) Repeat
-5. Merge PR to main and watch [GitHub action]() create new release PR
+5. Merge PR to main and watch [GitHub action](.github/workflows/libraries.yml) create new release PR
 6. (optional) Repeat with more PR's
 7. Merge release PR to main and watch GitHub action publish packages to npm registry
 
