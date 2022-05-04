@@ -8,6 +8,9 @@
     "some-lib": "workspace:*"
   },
   "devDependencies": {
-    "some-config": "workspace:*"
+    "some-config": "workspace:^"
+  },
+  "scripts": {
+    "test": "echo test from some-app"
   }
 }
