@@ -1,8 +1,0 @@
-{
-  "extends": "some-config/someconfig.json",
-  "options": {
-    "somethingElse": true
-  },
-  "include": ["*.js"],
-  "exclude": ["node_modules"]
-}

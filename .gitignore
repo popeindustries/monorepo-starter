@@ -1,4 +1,5 @@
 node_modules/
+.dvlp
 .DS_store
 .pnpm-debug.log
 # Prevent npm/yarn lock files from being commited

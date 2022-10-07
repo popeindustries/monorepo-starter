@@ -4,7 +4,17 @@
   "type": "module",
   "private": true,
   "devDependencies": {
-    "@changesets/cli": "^2.22.0"
+    "@changesets/cli": "^2.22.0",
+    "@typescript-eslint/eslint-plugin": "^5.38.1",
+    "@typescript-eslint/parser": "^5.38.1",
+    "dvlp": "^14.2.7",
+    "eslint": "^8.24.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "husky": "^8.0.1",
+    "lint-staged": "^13.0.3",
+    "prettier": "^2.7.1",
+    "typescript": "^4.8.3"
   },
   "engines": {
     "node": ">=16",
@@ -12,10 +22,30 @@
   },
   "scripts": {
     "build": "pnpm --recursive run build",
+    "clean": "git clean -x -f",
+    "dev": "pnpm --filter app dev",
+    "format": "prettier --write '{apps,libraries,tools}/**/src/**/*.{js,json}'",
     "libraries:version": "changeset version && pnpm install --offline --frozen-lockfile",
     "libraries:publish": "git pull --tags --force && changeset tag && pnpm publish --recursive",
-    "lint": "pnpm --recursive run lint",
+    "lint": "pnpm run lint:eslint && pnpm run lint:typescript",
+    "lint:eslint": "eslint '{apps,libraries,tools}/src/**/*.js'",
+    "lint:typescript": "pnpm --recursive run lint:typescript",
     "test": "pnpm --recursive run test",
-    "preinstall": "npx only-allow pnpm"
+    "preinstall": "npx only-allow pnpm",
+    "prepare": "husky install"
+  },
+  "prettier": {
+    "arrowParens": "always",
+    "printWidth": 120,
+    "singleQuote": true,
+    "trailingComma": "all"
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint"
+    ],
+    "*.{js,json,md}": [
+      "prettier --write"
+    ]
   }
 }

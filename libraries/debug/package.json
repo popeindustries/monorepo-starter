@@ -1,0 +1,23 @@
+{
+  "name": "@popeindustries/debug",
+  "version": "1.0.0",
+  "description": "Utility for logging debug statements based on custom namespaces",
+  "type": "module",
+  "author": "Alexander Pope <alex@pope.industries>",
+  "main": "debug.js",
+  "exports": {
+    "browser": "./debug.js",
+    "import": "./debug.js",
+    "types": "./debug.d.ts"
+  },
+  "scripts": {},
+  "devDependencies": {
+    "eslint-config": "workspace:*",
+    "ts-config": "workspace:*"
+  },
+  "files": [
+    "*.js",
+    "*.d.ts",
+    "README.md"
+  ]
+}

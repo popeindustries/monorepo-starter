@@ -1,0 +1,9 @@
+{
+  "extends": "ts-config/tsconfig.json",
+  "compilerOptions": {
+    "useDefineForClassFields": true,
+    "typeRoots": ["node_modules/@types"],
+    "noEmit": true
+  },
+  "include": ["src"]
+}

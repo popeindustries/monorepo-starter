@@ -1,0 +1,21 @@
+{
+  "name": "app",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "main": "index.js",
+  "dependencies": {
+    "@popeindustries/debug": "workspace:^",
+    "@popeindustries/lit": "^1.1.2"
+  },
+  "devDependencies": {
+    "@types/node": "^18.8.2",
+    "eslint-config": "workspace:*",
+    "ts-config": "workspace:^"
+  },
+  "scripts": {
+    "dev": "dvlp src/server.js",
+    "test": "echo test from app",
+    "lint:typescript": "tsc --noEmit --skipLibCheck"
+  }
+}
